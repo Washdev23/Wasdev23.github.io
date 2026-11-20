@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Washdev's personal portfolio website.">
+  <title>Washdev | Portfolio</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: #121a2e;
+      --text: #edf2ff;
+      --muted: #aab6d3;
+      --accent: #76a9ff;
+      --accent2: #9b8cff;
+      --line: rgba(255,255,255,.1);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 80% 5%, rgba(118,169,255,.15), transparent 28rem),
+        radial-gradient(circle at 5% 35%, rgba(155,140,255,.1), transparent 24rem),
+        var(--bg);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      line-height: 1.65;
+    }
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: min(1080px, calc(100% - 40px)); margin: auto; }
+    header {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(11,16,32,.82);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--line);
+    }
+    nav { min-height: 70px; display:flex; align-items:center; justify-content:space-between; gap:20px; }
+    .logo { font-weight: 800; letter-spacing: -.5px; font-size: 1.15rem; }
+    .logo span { color: var(--accent); }
+    .links { display:flex; gap:24px; color:var(--muted); font-size:.93rem; }
+    .links a:hover { color:var(--text); }
+    .menu { display:none; border:1px solid var(--line); background:var(--panel); color:var(--text); border-radius:10px; padding:8px 12px; }
+    .hero { padding: 100px 0 78px; display:grid; grid-template-columns:1.5fr .8fr; gap:50px; align-items:center; }
+    .eyebrow { color:var(--accent); font-weight:700; text-transform:uppercase; letter-spacing:2px; font-size:.78rem; }
+    h1 { font-size:clamp(2.6rem, 6vw, 4.8rem); line-height:1.06; letter-spacing:-2.8px; margin:15px 0 20px; }
+    h1 span { background:linear-gradient(100deg,var(--accent),var(--accent2)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+    .lead { color:var(--muted); font-size:1.1rem; max-width:620px; }
+    .actions { display:flex; gap:12px; flex-wrap:wrap; margin-top:30px; }
+    .btn { display:inline-flex; align-items:center; justify-content:center; padding:12px 18px; border-radius:12px; font-weight:700; border:1px solid var(--line); transition:.2s; }
+    .btn.primary { background:linear-gradient(110deg,#548ff0,#8272e9); border:0; color:white; }
+    .btn:hover { transform:translateY(-2px); }
+    .profile-card { background:linear-gradient(145deg,rgba(118,169,255,.17),rgba(155,140,255,.08)); border:1px solid var(--line); border-radius:26px; padding:28px; text-align:center; box-shadow:0 25px 80px rgba(0,0,0,.22); }
+    .avatar { width:150px; height:150px; margin:4px auto 18px; border-radius:50%; display:grid; place-items:center; font-size:3rem; font-weight:800; color:#fff; background:linear-gradient(135deg,#548ff0,#9279ee); border:5px solid rgba(255,255,255,.12); }
+    .profile-card p { color:var(--muted); margin:5px 0; }
+    section { padding:58px 0; }
+    .section-head { margin-bottom:25px; }
+    .section-head h2 { font-size:2rem; letter-spacing:-1px; margin:5px 0; }
+    .section-head p { color:var(--muted); margin:0; }
+    .grid { display:grid; grid-template-columns:repeat(2,1fr); gap:18px; }
+    .card { background:rgba(18,26,46,.86); border:1px solid var(--line); border-radius:18px; padding:24px; }
+    .card h3 { margin:0 0 8px; font-size:1.12rem; }
+    .card p { margin:0; color:var(--muted); }
+    .tag-list { display:flex; flex-wrap:wrap; gap:10px; margin-top:16px; }
+    .tag { padding:7px 12px; border-radius:999px; color:#dce7ff; background:rgba(118,169,255,.12); border:1px solid rgba(118,169,255,.22); font-size:.9rem; }
+    .project-note { font-size:.85rem; color:var(--accent)!important; margin-top:12px!important; }
+    .contact { display:flex; justify-content:space-between; align-items:center; gap:25px; flex-wrap:wrap; }
+    footer { border-top:1px solid var(--line); padding:25px 0; color:var(--muted); font-size:.9rem; }
+    .small { color:var(--muted); font-size:.9rem; }
+    @media (max-width:760px) {
+      .hero { grid-template-columns:1fr; padding:70px 0 45px; gap:30px; }
+      .profile-card { max-width:360px; }
+      .grid { grid-template-columns:1fr; }
+      .menu { display:block; }
+      .links { display:none; position:absolute; top:69px; left:0; right:0; padding:18px 22px; background:#0f1729; border-bottom:1px solid var(--line); flex-direction:column; gap:14px; }
+      .links.open { display:flex; }
+      h1 { letter-spacing:-1.8px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="wrap">
+      <a class="logo" href="#home">Washdev<span>23.</span></a>
+      <button class="menu" id="menuBtn" aria-label="Toggle navigation">Menu</button>
+      <div class="links" id="navLinks">
+        <a href="#about">About</a>
+        <a href="#education">Education</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <section class="hero" id="home">
+      <div>
+        <div class="eyebrow">Welcome to my portfolio</div>
+        <h1>Hi, I'm <span>Washdev</span>.</h1>
+        <p class="lead">I am a Computer Science student interested in programming, technology, and building useful things. I am learning step by step and sharing my progress here.</p>
+        <div class="actions">
+          <a class="btn primary" href="#projects">Explore my work</a>
+          <a class="btn" href="#contact">Contact me</a>
+        </div>
+      </div>
+      <aside class="profile-card">
+        <div class="avatar">W</div>
+        <h3>Washdev</h3>
+        <p>Computer Science Student</p>
+        <p class="small">Learning • Practising • Building</p>
+      </aside>
+    </section>
+
+    <section id="about">
+      <div class="section-head">
+        <div class="eyebrow">A little about me</div>
+        <h2>About Me</h2>
+      </div>
+      <div class="card">
+        <p>I am a Computer Science student with an interest in programming and software development. I enjoy learning programming concepts, solving problems, and improving my skills through practice. This website is my space to share my learning journey and projects.</p>
+      </div>
+    </section>
+
+    <section id="education">
+      <div class="section-head">
+        <div class="eyebrow">My background</div>
+        <h2>Education</h2>
+      </div>
+      <div class="card">
+        <h3>Computer Science Student</h3>
+        <p>Currently studying Computer Science.</p>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="section-head">
+        <div class="eyebrow">What I'm learning</div>
+        <h2>Skills</h2>
+        <p>My current skills and learning areas.</p>
+      </div>
+      <div class="card">
+        <div class="tag-list">
+          <span class="tag">C Programming</span>
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="section-head">
+        <div class="eyebrow">Things I've worked on</div>
+        <h2>My Projects</h2>
+        <p>My projects will be added here as I complete them.</p>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <h3>Coming Soon</h3>
+          <p>I will add my C programming and web development projects here.</p>
+        </article>
+        <article class="card">
+          <h3>Learning Projects</h3>
+          <p>Small practice projects that help me improve my programming skills.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="card contact">
+        <div>
+          <div class="eyebrow">Get in touch</div>
+          <h2 style="margin:5px 0">Contact Me</h2>
+          <p class="small">Have a question or want to connect? Send me an email or find me on GitHub.</p>
+        </div>
+        <div class="actions">
+          <a class="btn primary" href="mailto:p260637@pwr.nu.edu.pk">Email me</a>
+          <a class="btn" href="https://github.com/Washdev23" target="_blank" rel="noopener">Visit my GitHub</a>
+        </div>
+      </div>
+      <p class="small" style="margin-top:14px">Email: <a href="mailto:p260637@pwr.nu.edu.pk">p260637@pwr.nu.edu.pk</a></p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">© <span id="year"></span> Washdev. Built with HTML and CSS.</div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    document.getElementById('menuBtn').addEventListener('click', () => {
+      document.getElementById('navLinks').classList.toggle('open');
+    });
+    document.querySelectorAll('#navLinks a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('navLinks').classList.remove('open');
+      });
+    });
+  </script>
+</body>
+</html>
